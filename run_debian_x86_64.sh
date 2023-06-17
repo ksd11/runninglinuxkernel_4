@@ -15,6 +15,7 @@ rootfs_size=8192
 
 SMP="-smp 4"
 
+# 打印帮助信息
 if [ $# -lt 1 ]; then
 	echo "Usage: $0 [arg]"
 	echo "build_kernel: build the kernel image."
@@ -28,6 +29,7 @@ if [ $# -eq 2 ] && [ $2 == "debug" ]; then
 	SMP=""
 fi
 
+# 编译内核，其中cpu架构通过上述ARCH指定
 make_kernel_image(){
 		echo "start build kernel image..."
 		make debian_defconfig
@@ -63,6 +65,7 @@ build_kernel_devel(){
 
 }
 
+# 此脚本需要以root运行
 check_root(){
 		if [ "$(id -u)" != "0" ];then
 			echo "superuser privileges are required to run"
@@ -71,6 +74,7 @@ check_root(){
 		fi
 }
 
+# 构建文件系统
 build_rootfs(){
 		if [ ! -f $rootfs_image ]; then
 			make install
@@ -92,6 +96,7 @@ build_rootfs(){
 
 }
 
+# 运行qemu
 run_qemu_debian(){
 		qemu-system-x86_64 -m 1024\
 			-nographic $SMP -kernel arch/x86/boot/bzImage \

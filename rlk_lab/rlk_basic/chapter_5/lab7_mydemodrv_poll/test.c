@@ -18,8 +18,10 @@ int main(int argc, char *argv[])
 	char buffer1[64];
 
 	fds[0].fd = open("/dev/mydemo0", O_RDWR);
-	if (fds[0].fd == -1) 
+	if (fds[0].fd == -1){
+		printf("open fail\n");
 		goto fail;
+	} 
 	fds[0].events = POLLIN;
 
 	fds[1].fd = open("/dev/mydemo1", O_RDWR);

@@ -31,7 +31,7 @@ struct mydemo_private_data {
 };
 
 #define MYDEMO_MAX_DEVICES  8
-static struct mydemo_device *mydemo_device[MYDEMO_MAX_DEVICES]; 
+static struct mydemo_device *mydemo_device[MYDEMO_MAX_DEVICES];  // 保存所有的设备
 
 static int demodrv_open(struct inode *inode, struct file *file)
 {
@@ -204,6 +204,8 @@ static int __init simple_char_init(void)
 	}
 
 	printk("succeeded register char device: %s\n", DEMO_NAME);
+	printk("Major number = %d, minor number = %d\n",
+			MAJOR(dev), MINOR(dev));
 
 	return 0;
 
